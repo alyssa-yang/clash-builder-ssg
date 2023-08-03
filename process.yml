@@ -1,0 +1,9 @@
+apps:
+  - script: yarn
+    args: start
+    name: clash-builder-ssr
+    instances: 1
+    watch: true
+    env:
+      NODE_ENV: production
+      RUNNING_ENV: prod
