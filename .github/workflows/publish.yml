@@ -17,6 +17,6 @@ jobs:
           script: |
             cd /root/source/clash-builder-ssr/
             git pull
-            yarn
-            yarn build
+            pnpm i
+            pnpm build
             pm2 restart clash-builder-ssr
