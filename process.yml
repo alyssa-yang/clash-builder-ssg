@@ -1,9 +1,10 @@
 apps:
   - script: pnpm
-    args: start
+    args: start:prod
     name: clash-builder-ssr
     instances: 1
     watch: true
     env:
       NODE_ENV: production
       RUNNING_ENV: prod
+      APP_PORT: 5002
