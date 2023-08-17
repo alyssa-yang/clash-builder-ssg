@@ -1,5 +1,5 @@
 apps:
-  - script: yarn
+  - script: pnpm
     args: start
     name: clash-builder-ssr
     instances: 1
