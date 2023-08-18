@@ -1,6 +1,6 @@
 apps:
   - script: pnpm
-    args: start:prod
+    args: start
     name: clash-builder-ssr
     instances: 1
     watch: true
