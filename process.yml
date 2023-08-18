@@ -8,3 +8,4 @@ apps:
       NODE_ENV: production
       RUNNING_ENV: prod
       APP_PORT: 5002
+      VALIDATE_TOKEN: svalidatetoken
