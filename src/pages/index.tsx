@@ -3,6 +3,13 @@ import ClientOnly from "src/components/ClientOnly";
 import Canvas from "src/components/Canvas";
 
 export default function Home({ data }: any) {
+  let content = ''
+  try {
+    content = JSON.parse(data.content)
+  } catch (error) {
+    console.log(error)
+  }
+
   return (
     <>
       <Head>
@@ -13,7 +20,7 @@ export default function Home({ data }: any) {
       <main>
         <ClientOnly>
           {data ? (
-            <Canvas canvas={JSON.parse(data.content)} />
+            <Canvas canvas={content} />
           ) : (
             <div className="err">
               id 信息有误，请检查之后重新输入
@@ -37,7 +44,7 @@ export async function getServerSideProps({ query }: { query: { id: string } }) {
   console.log('data', data)
   return {
     props: {
-      data: data.result && data?.result?.publish && !data.result?.isDelete ? data.result : {},
+      data: data.result && data?.result?.publish && !data.result?.isDelete ? data.result : '',
     },
   };
 }
