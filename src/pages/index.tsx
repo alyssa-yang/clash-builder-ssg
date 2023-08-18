@@ -34,10 +34,10 @@ export async function getServerSideProps({ query }: { query: { id: string } }) {
   );
 
   const data = await res.json();
-
+  console.log('data', data)
   return {
     props: {
-      data: data.result.publish && !data.result.isDelete && data.result,
+      data: data.result && data?.result?.publish && !data.result?.isDelete ? data.result : {},
     },
   };
 }
