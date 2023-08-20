@@ -3,7 +3,7 @@ import ClientOnly from "src/components/ClientOnly";
 import Canvas from "src/components/Canvas";
 
 export default function Home({ data }: any) {
-  let content = ''
+  let content = {}
   try {
     content = JSON.parse(data.content)
   } catch (error) {
@@ -37,14 +37,16 @@ export default function Home({ data }: any) {
 // getServerSideProps 只在服务端调用，并不会运行在客户端。
 export async function getServerSideProps({ query }: { query: { id: string } }) {
   const res = await fetch(
-    "http://clash-server.echoyore.tech/api/web/content/get?id=" + (query.id || 2)
+    // "http://clash-server.echoyore.tech/api/web/content/get?id=" + (query.id || 2)
+    "http://localhost:4000/api/web/content/get?id=" + (query.id || 2)
+
   );
 
   const data = await res.json();
   console.log('data', data)
   return {
     props: {
-      data: data.result && data?.result?.publish && !data.result?.isDelete ? data.result : '',
+      data: data.result && !data.result?.isDelete ? data.result : '',
     },
   };
 }

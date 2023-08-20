@@ -22,7 +22,7 @@ export default function Canvas({ canvas }: any) {
             style={{
                 ...style,
                 width,
-                backgroundImage: `url(${(style as any).backgroundImage})`,
+                backgroundImage: style?.backgroundImage ? `url(${(style as any).backgroundImage})` : 'none',
                 transform,
                 transformOrigin: "0 0",
                 overflow: "hidden",
