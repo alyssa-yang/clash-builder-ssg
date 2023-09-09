@@ -7,5 +7,5 @@ apps:
     env:
       NODE_ENV: production
       RUNNING_ENV: prod
-      APP_PORT: 5002
+      APP_PORT: 5001
       VALIDATE_TOKEN: svalidatetoken
