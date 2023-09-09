@@ -1,7 +1,7 @@
 apps:
   - script: pnpm
     args: start
-    name: clash-builder-ssr
+    name: clash-builder-ssg
     instances: 1
     watch: true
     env:
