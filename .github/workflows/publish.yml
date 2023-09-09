@@ -15,8 +15,8 @@ jobs:
           username: root
           key: ${{ secrets.ACCESS_TOKEN }}
           script: |
-            cd /root/source/clash-builder-ssr/
+            cd /root/source/clash-builder-ssg/
             git pull
             pnpm i
             pnpm build
-            pm2 restart clash-builder-ssr
+            pm2 restart clash-builder-ssg
