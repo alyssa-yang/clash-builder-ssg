@@ -1,5 +1,5 @@
-import { Button, Img, Input, Text } from "./CmpDetail";
-import { memo } from "react";
+import {Button, Img, Input, Text} from "./CmpDetail";
+import {memo} from "react";
 import axios from "axios";
 import styles from "./index.module.css";
 
@@ -16,87 +16,87 @@ export const isFormComponent = isFormComponent_Input | isFormComponent_Button;
 
 export type Style = any;
 export interface ICmp {
-    type: number;
-    style: Style;
-    value: string;
-    onClick?: string;
+  type: number;
+  style: Style;
+  value: string;
+  onClick?: string;
 }
 
 export interface ICmpWithKey extends ICmp {
-    key: number;
-    // 表单组件
-    formKey: string;
+  key: number;
+  // 表单组件
+  formKey: string;
 }
 
 interface ICmpProps {
-    cmp: ICmpWithKey;
-    index: number;
+  cmp: ICmpWithKey;
+  index: number;
 }
 
-const fetch = async ({ url, afterSuccess, popMsg, link }: any, params: any) => {
-    const res: any = await axios.post(url, params);
-    if (res?.data?.code === 200) {
-        // 成功
-        if (afterSuccess === "pop") {
-            // 弹窗提示
-            alert(popMsg || res.data.msg);
-        } else {
-            // 跳转
-            window.location.href = link;
-        }
+const fetch = async ({url, afterSuccess, popMsg, link}: any, params: any) => {
+  const res: any = await axios.post(url, params);
+  if (res?.data?.code === 200) {
+    // 成功
+    if (afterSuccess === "pop") {
+      // 弹窗提示
+      alert(popMsg || res.data.msg);
     } else {
-        alert(res?.data?.msg || "error");
+      // 跳转
+      window.location.href = link;
     }
+  } else {
+    alert(res?.data?.msg || "error");
+  }
 };
 
 const Cmp = memo((props: ICmpProps) => {
-    const { cmp, index } = props;
-    const { key, formKey } = cmp;
-    const { style, onClick } = cmp;
+  const {cmp, index} = props;
+  const {key, formKey} = cmp;
+  const {style, onClick} = cmp;
 
-    const transform = `rotate(${style.transform}deg)`;
+  const transform = `rotate(${style.transform}deg)`;
 
-    const submit = () => {
-        if (typeof onClick === "string") {
-            window.location.href = onClick;
-        } else if (typeof onClick === "object") {
-            // form submit
-            const params: any = {};
+  const submit = () => {
+    if (typeof onClick === "string") {
+      window.location.href = onClick;
+    } else if (typeof onClick === "object") {
+      // form submit
+      const params: any = {};
 
-            const inputs: NodeListOf<HTMLInputElement> = document.querySelectorAll(
-                `.input${formKey}`
-            );
+      const inputs: NodeListOf<HTMLInputElement> = document.querySelectorAll(
+        `.input${formKey}`
+      );
 
-            inputs.forEach((input) => {
-                const inputName = input.name;
-                params[inputName] = input.value;
-            });
+      inputs.forEach((input) => {
+        const inputName = input.name;
+        params[inputName] = input.value;
+      });
 
-            // 表单请求
-            fetch(onClick, params);
-        }
-    };
+      // 表单请求
+      fetch(onClick, params);
+    }
+  };
 
-    return (
-        <div
-            id={"cmp" + key}
-            className={styles.main}
-            style={{
-                ...style,
-                transform,
-                zIndex: index,
-                animationPlayState: "running",
-            }}
-            onClick={submit}>
-            {cmp.type === isTextComponent && <Text {...cmp} />}
-            {cmp.type === isImgComponent && <Img {...cmp} />}
-            {/* 图形组件不需要渲染内容 */}
+  return (
+    <div
+      id={"cmp" + key}
+      className={styles.main}
+      style={{
+        ...style,
+        transform,
+        zIndex: index,
+        animationPlayState: "running",
+      }}
+      onClick={submit}>
+      {cmp.type === isTextComponent && <Text {...cmp} />}
+      {cmp.type === isImgComponent && <Img {...cmp} />}
+      {/* 图形组件不需要渲染内容 */}
 
-            {/* 表单组件 */}
-            {cmp.type === isFormComponent_Input && <Input {...cmp} />}
-            {cmp.type === isFormComponent_Button && <Button value={cmp.value} />}
-        </div>
-    );
+      {/* 表单组件 */}
+      {cmp.type === isFormComponent_Input && <Input {...cmp} />}
+      {cmp.type === isFormComponent_Button && <Button value={cmp.value} />}
+    </div>
+  );
 });
 
 Cmp.displayName = "Cmp";
